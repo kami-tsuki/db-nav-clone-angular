@@ -1,0 +1,172 @@
+{
+    "explanations": {
+        "hasBicycle": {
+            "title": {
+                "de": "Hat Fahrrad Parkplatz",
+                "en": "Has Bicycleparking"
+            },
+            "text": {
+                "de": "Der Bahnhof hat Fahrrad Parkplätze",
+                "en": "This Station has Bicycleparking"
+            },
+            "iconClasses": [
+                "fas",
+                "fa-bicycle"
+            ]
+        },
+        "hasSteplessAccess": {
+            "title": {
+                "de": "Hat stufenlosen Zugang",
+                "en": "Has Stepless Access"
+            },
+            "text": {
+                "de": "Der Bahnhof hat stufenlosen Zugang",
+                "en": "This Station has Stepless Access"
+            },
+            "iconClasses": [
+                "fas",
+                "fa-wheelchair"
+            ]
+        },
+        "hasCarRental": {
+            "title": {
+                "de": "Hat Autovermietung",
+                "en": "Has Car Rental"
+            },
+            "text": {
+                "de": "Der Bahnhof hat eine Autovermietung",
+                "en": "This Station has Car Rental"
+            },
+            "iconClasses": [
+                "fas",
+                "fa-car"
+            ]
+        },
+        "hasWifi": {
+            "title": {
+                "de": "Hat Wifi",
+                "en": "Has Wifi"
+            },
+            "text": {
+                "de": "Der Bahnhof hat Wifi",
+                "en": "This Station has Wifi"
+            },
+            "iconClasses": [
+                "fas",
+                "fa-wifi"
+            ]
+        },
+        "hasLocalPublicTransport": {
+            "title": {
+                "de": "Hat öffentlichen Nahverkehr",
+                "en": "Has Local Public Transport"
+            },
+            "text": {
+                "de": "Der Bahnhof hat öffentlichen Nahverkehr",
+                "en": "This Station has Local Public Transport"
+            },
+            "iconClasses": [
+                "fas",
+                "fa-bus"
+            ]
+        },
+        "hasTaxiRank": {
+            "title": {
+                "de": "Hat Taxistand",
+                "en": "Has Taxi Rank"
+            },
+            "text": {
+                "de": "Der Bahnhof hat einen Taxistand",
+                "en": "This Station has a Taxi Rank"
+            },
+            "iconClasses": [
+                "fas",
+                "fa-taxi"
+            ]
+        },
+        "hasParking": {
+            "title": {
+                "de": "Hat Parkplatz",
+                "en": "Has Parking"
+            },
+            "text": {
+                "de": "Der Bahnhof hat Parkplätze",
+                "en": "This Station has Parking"
+            },
+            "iconClasses": [
+                "fas",
+                "fa-parking"
+            ]
+        },
+        "hasLockerSystem": {
+            "title": {
+                "de": "Hat Schließfachsystem",
+                "en": "Has Locker System"
+            },
+            "text": {
+                "de": "Der Bahnhof hat ein Schließfachsystem",
+                "en": "This Station has a Locker System"
+            },
+            "iconClasses": [
+                "fas",
+                "fa-lock"
+            ]
+        },
+        "hasPublicFacilities": {
+            "title": {
+                "de": "Hat öffentliche Einrichtungen",
+                "en": "Has Public Facilities"
+            },
+            "text": {
+                "de": "Der Bahnhof hat öffentliche Einrichtungen",
+                "en": "This Station has Public Facilities"
+            },
+            "iconClasses": [
+                "fas",
+                "fa-toilet"
+            ]
+        },
+        "hasRailwayMission": {
+            "title": {
+                "de": "Hat Bahnhofsmission",
+                "en": "Has Railway Mission"
+            },
+            "text": {
+                "de": "Der Bahnhof hat eine Bahnhofsmission",
+                "en": "This Station has a Railway Mission"
+            },
+            "iconClasses": [
+                "fas",
+                "fa-hospital"
+            ]
+        },
+        "hasDBLounge": {
+            "title": {
+                "de": "Hat DB Lounge",
+                "en": "Has DB Lounge"
+            },
+            "text": {
+                "de": "Der Bahnhof hat eine DB Lounge",
+                "en": "This Station has a DB Lounge"
+            },
+            "iconClasses": [
+                "fas",
+                "fa-coffee"
+            ]
+        },
+        "default": {
+            "title": {
+                "de": "Nicht gefunden",
+                "en": "Not Found"
+            },
+            "text": {
+                "de": "Es wurden keine Erklärungen gefunden",
+                "en": "No explanations were found"
+            },
+            "iconClasses": [
+                "fas",
+                "fa-question"
+            ]
+        }
+    }
+}

@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+    showNames = false;
   title = 'DB-NAV-CLONE';
 }

@@ -25,6 +25,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css"
             ],
             "scripts": []
@@ -62,9 +63,6 @@
             "development": {
               "buildTarget": "DB-NAV-CLONE:build:development"
             }
-          },
-          "options": {
-            "proxyConfig": "proxy.conf.json",
           },
           "defaultConfiguration": "development"
         },

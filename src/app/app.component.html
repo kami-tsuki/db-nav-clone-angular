@@ -1,20 +1,10 @@
-<div class="flex min-h-screen">
-    <nav class="bg-gray-800 text-white w-64 fixed h-full">
-        <header class="bg-gray-200 p-4 text-center sticky top-0 z-50">
-            <h1 class="text-2xl font-bold">Deutsche Bahn Navigator Clone</h1>
-        </header>
-        <ul class="space-y-2 p-4">
-            <li><a class="block py-2 px-4 rounded hover:bg-gray-700" routerLink="/home">Home</a></li>
-            <li><a class="block py-2 px-4 rounded hover:bg-gray-700" routerLink="/search">Search</a></li>
-            <li><a class="block py-2 px-4 rounded hover:bg-gray-700" routerLink="/navigations">Navigations</a></li>
-        </ul>
-    </nav>
-    <div class="flex flex-col flex-grow overflow-auto ml-64">
+<div class="flex flex-col min-h-screen md:flex-row">
+    <app-navbar></app-navbar>
+    <div class="flex flex-col flex-grow overflow-auto mt-16 md:mt-0 md:ml-16 md:ml-64 transition-all duration-500 ease-in-out" [class.md:ml-64]="showNames" [class.md:ml-16]="!showNames">
+        <app-header></app-header>
         <main class="flex-grow">
-          <router-outlet></router-outlet>
+            <router-outlet></router-outlet>
         </main>
-        <footer class="bg-gray-200 p-4 text-center fixed bottom-0 w-full">
-            <p>© 2024 Deutsche Bahn Navigator Clone</p>
-        </footer>
+        <app-footer></app-footer>
     </div>
 </div>

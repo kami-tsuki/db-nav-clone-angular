@@ -1,0 +1,37 @@
+<div class="container mx-auto px-4 w-full md:w-1/2 whitespace-nowrap" *ngIf="station">
+    <div class="flex items-center justify-center mt-10">
+        <div class="mb-4 bg-white rounded-lg p-4 shadow flex flex-col md:flex-row w-full">
+            <div class="flex flex-col w-full md:w-1/2" *ngIf="station.name">
+                <div class="font-bold text-xl mb-2">{{ station.name }}</div>
+                <div class="text-gray-700 text-base"
+                     *ngIf="station.evaNumbers && station.evaNumbers[0]">{{ station.evaNumbers[0].number }}
+                </div>
+            </div>
+            <div class="flex w-full md:w-1/2 justify-start md:justify-end items-center mt-4 md:mt-0">
+                <ng-container *ngFor="let feature of ['hasBicycle', 'hasSteplessAccess', 'hasCarRental', 'hasWifi', 'hasLocalPublicTransport', 'hasTaxiRank', 'hasParking', 'hasLockerSystem', 'hasPublicFacilities', 'hasRailwayMission', 'hasDBLounge']">
+                    <i (click)="openExplanationDialog(feature, station[feature] ? 'green' : 'red')"
+                       id="station-{{station.number}}-{{feature}}-icon" class="fas mr-2 cursor-pointer"
+                       [ngClass]="{
+                           'fa-bicycle': feature === 'hasBicycle',
+                           'fa-wheelchair': feature === 'hasSteplessAccess',
+                           'fa-car': feature === 'hasCarRental',
+                           'fa-wifi': feature === 'hasWifi',
+                           'fa-bus': feature === 'hasLocalPublicTransport',
+                           'fa-taxi': feature === 'hasTaxiRank',
+                           'fa-parking': feature === 'hasParking',
+                           'fa-lock': feature === 'hasLockerSystem',
+                           'fa-toilet': feature === 'hasPublicFacilities',
+                           'fa-hospital': feature === 'hasRailwayMission',
+                           'fa-coffee': feature === 'hasDBLounge',
+                           'text-green-500': station[feature],
+                           'text-gray-500': station[feature] === undefined,
+                           'text-red-500': !station[feature]
+                       }"
+                       [title]="config.getByKey(feature).title.en"
+                       data-tippy-content="Tooltip content">
+                    </i>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

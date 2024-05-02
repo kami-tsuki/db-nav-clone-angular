@@ -1,0 +1,19 @@
+<div class="fixed inset-0 flex items-center justify-center z-50">
+    <div class="bg-white p-8 shadow-lg rounded-lg w-full max-w-lg mx-auto">
+        <div class="flex justify-between items-center">
+            <i [class]="data.iconClass" [ngStyle]="{'color': data.color}" class="text-4xl"></i>
+            <h2 class="text-2xl font-semibold">{{ data.title.en }}</h2>
+            <button mat-icon-button mat-dialog-close>
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <mat-tab-group class="mt-4">
+            <mat-tab label="English">
+                <p class="mt-2">{{ data.explanation.en }}</p>
+            </mat-tab>
+            <mat-tab label="German">
+                <p class="mt-2">{{ data.explanation.de }}</p>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
