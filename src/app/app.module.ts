@@ -18,6 +18,7 @@ export const routes: Routes = [
   {path: 'station-detail', component: StationDetailComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
 ];
+
 @NgModule({
   declarations: [SearchComponent, AppComponent, StationDetailComponent],
   imports: [

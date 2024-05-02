@@ -16,7 +16,7 @@ export class DbService {
 
   getSearchStationData(searchString: string, limit: number = 15): any {
     searchString === undefined ? searchString = '' : searchString;
-    const url = `https://apis.deutschebahn.com/db-api-marketplace/apis/station-data/v2/stations?searchstring=*${searchString}*&limit=${limit}`;
+    const url = `http://localhost:3000/api/db/station-data/stations?searchstring=*${searchString}*&limit=${limit}`;
     const headers = {
       'DB-Api-Key': this.api_key,
       'DB-Client-ID': this.client_id,

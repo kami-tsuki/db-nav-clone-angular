@@ -1,0 +1,6 @@
+{
+  "api/db/station-data/stations": {
+    "target": "https://apis.deutschebahn.com/db-api-marketplace/apis/station-data/v2/stations",
+    "secure": false
+  }
+}
