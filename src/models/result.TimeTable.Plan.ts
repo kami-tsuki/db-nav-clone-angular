@@ -24,10 +24,13 @@ export interface TimetableStopEvent {
 
 export interface HistoricDelay {
     arrivalTimestamp: string;
+    arrivalDateTime?: Date;
     causeOfDelay?: string;
     departureTimestamp: string;
+    departureDateTime?: Date;
     delaySource: 'L' | 'NA' | 'NM' | 'V' | 'IA' | 'IM' | 'A';
     timestamp: string;
+    timestampDateTime?: Date;
 }
 
 export interface HistoricPlatformChange {
@@ -35,6 +38,7 @@ export interface HistoricPlatformChange {
     causeOfChange?: string;
     departurePlatform: string;
     timestamp: string;
+    timestampDateTime?: Date;
 }
 
 export interface ConnectionElement {
@@ -44,6 +48,7 @@ export interface ConnectionElement {
     ref: TimetableStop;
     stop: TimetableStop;
     timestamp: string;
+    timestampDateTime?: Date;
 }
 
 interface ReferenceTrip {
@@ -53,6 +58,7 @@ interface ReferenceTrip {
         index: number;
         name: string;
         plannedTime: string;
+        plannedDateTime?: Date;
     };
     id: string;
     rtl: {
@@ -89,6 +95,7 @@ export interface Message {
     externalLink?: string;
     externalText?: string;
     from?: string;
+    fromDateTime?: Date;
     id: string;
     internalText?: string;
     owner?: string;
@@ -102,13 +109,15 @@ export interface Message {
         type: 'p' | 'e' | 'z' | 's' | 'h' | 'n';
     }[];
     to?: string;
+    toDateTime?: Date;
     timestamp: string;
+    timestampDateTime?: Date;
 }
 
 export interface TimetableStop {
-    arrivalStopEvent?: TimetableStopEvent[];
+    arrival?: TimetableStopEvent[];
     connections?: ConnectionElement[];
-    departureStopEvent?: TimetableStopEvent[];
+    departure?: TimetableStopEvent[];
     evaStationNumber: number;
     historicDelays?: HistoricDelay[];
     historicPlatformChanges?: HistoricPlatformChange[];
@@ -143,19 +152,19 @@ export function convertToModel(data: any): Timetable {
             const timetableStop: TimetableStop = {
                 id: stop.$.id,
                 evaStationNumber: stop.$.eva,
-                arrivalStopEvent: stop.ar ? stop.ar.map((ar: any) => ({
+                arrival: stop.ar ? stop.ar.map((ar: any) => ({
                     line: ar.$.l,
                     plannedPlatform: ar.$.pp,
                     plannedPath: ar.$.ppth,
-                    pathArray: ar.$.ppth ?  ar.$.ppth.split('|') : undefined,
+                    pathArray: ar.$.ppth ? ar.$.ppth.split('|') : undefined,
                     plannedTime: ar.$.pt,
                     plannedDateTime: ar.$.pt ? convertToDateTime(ar.$.pt) : undefined
                 })) : undefined,
-                departureStopEvent: stop.dp ? stop.dp.map((dp: any) => ({
+                departure: stop.dp ? stop.dp.map((dp: any) => ({
                     line: dp.$.l,
                     plannedPlatform: dp.$.pp,
                     plannedPath: dp.$.ppth,
-                    pathArray: dp.$.ppth ?  dp.$.ppth.split('|') : undefined,
+                    pathArray: dp.$.ppth ? dp.$.ppth.split('|') : undefined,
                     plannedTime: dp.$.pt,
                     plannedDateTime: dp.$.pt ? convertToDateTime(dp.$.pt) : undefined
                 })) : undefined,
@@ -178,7 +187,8 @@ export function convertToModel(data: any): Timetable {
                         eva: conn.s.$.eva,
                         id: conn.s.$.id
                     },
-                    timestamp: conn.$.ts
+                    timestamp: conn.$.ts,
+                    timestampDateTime: conn.$.pt ? convertToDateTime(conn.$.pt) : undefined
                 })) : undefined,
                 messages: stop.m ? stop.m.map((msg: any) => ({
                     code: msg.$.c,
@@ -188,12 +198,14 @@ export function convertToModel(data: any): Timetable {
                         internalText: dm.$.int,
                         number: dm.$.n,
                         type: dm.$.t as 's' | 'r' | 'f' | 'x',
-                        timestamp: dm.$.ts
+                        timestamp: dm.$.ts,
+                        timestampDateTime: dm.$.pt ? convertToDateTime(dm.$.pt) : undefined
                     })) : undefined,
                     externalCategory: msg.$.ec,
                     externalLink: msg.$.elnk,
                     externalText: msg.$.ext,
                     from: msg.$.from,
+                    fromDateTime: msg.$.from ? convertToDateTime(msg.$.from) : undefined,
                     id: msg.$.id,
                     internalText: msg.$.int,
                     owner: msg.$.o,
@@ -207,20 +219,26 @@ export function convertToModel(data: any): Timetable {
                         type: tl.$.t as 'p' | 'e' | 'z' | 's' | 'h' | 'n'
                     })) : undefined,
                     to: msg.$.to,
-                    timestamp: msg.$.ts
+                    toDateTime: msg.$.to ? convertToDateTime(msg.$.to) : undefined,
+                    timestamp: msg.$.ts,
+                    timestampDateTime: msg.$.pt ? convertToDateTime(msg.$.pt) : undefined
                 })) : undefined,
                 historicDelays: stop.hd ? stop.hd.map((delay: any) => ({
                     arrivalTimestamp: delay.ar,
+                    arrivalDateTime: delay.$.ar ? convertToDateTime(delay.$.ar) : undefined,
                     causeOfDelay: delay.$.cod,
                     departureTimeStamp: delay.dp,
+                    departureDateTime: delay.$.ar ? convertToDateTime(delay.$.ar) : undefined,
                     delaySource: delay.$.src as 'L' | 'NA' | 'NM' | 'V' | 'IA' | 'IM' | 'A',
-                    timestamp: delay.$.ts
+                    timestamp: delay.$.ts,
+                    timestampDateTime: delay.$.pt ? convertToDateTime(delay.$.pt) : undefined
                 })) : undefined,
                 historicPlatformChanges: stop.hpc ? stop.hpc.map((platformChange: any) => ({
                     arrivalPlatform: platformChange.ar,
                     causeOfChange: platformChange.$.cot,
                     departurePlatform: platformChange.dp,
-                    timestamp: platformChange.$.ts
+                    timestamp: platformChange.$.ts,
+                    timestampDateTime: platformChange.$.pt ? convertToDateTime(platformChange.$.pt) : undefined
                 })) : undefined,
                 referenceTripRelations: stop.rtr ? stop.rtr.map((relation: any) => ({
                     referenceTrip: {
@@ -229,7 +247,8 @@ export function convertToModel(data: any): Timetable {
                             eva: relation.rt.ea.$.eva,
                             index: Number(relation.rt.ea.$.i),
                             name: relation.rt.ea.$.n,
-                            plannedTime: relation.rt.ea.$.pt
+                            plannedTime: relation.rt.ea.$.pt,
+                            plannedDateTime: relation.$.pt ? convertToDateTime(relation.$.pt) : undefined
                         },
                         id: relation.rt.$.id,
                         rtl: {
@@ -240,7 +259,8 @@ export function convertToModel(data: any): Timetable {
                             eva: relation.rt.sd.$.eva,
                             index: Number(relation.rt.sd.$.i),
                             number: relation.rt.sd.$.n,
-                            plannedTime: relation.rt.sd.$.pt
+                            plannedTime: relation.rt.sd.$.pt,
+                            plannedDateTime: relation.$.pt ? convertToDateTime(relation.$.pt) : undefined
                         },
                         tl: relation.rt.tl.map((tl: any) => ({
                             category: tl.$.c,

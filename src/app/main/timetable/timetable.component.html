@@ -5,23 +5,23 @@
         <ng-container *ngFor="let stop of timetable.stops">
             <div class="border p-4 my-2">
                 <p *ngIf="stop.evaStationNumber">EVA Station Number: {{ stop.evaStationNumber }}</p>
-                <div *ngIf="stop.arrivalStopEvent" class="mt-2">
+                <div *ngIf="stop.arrival" class="mt-2">
                     <h4 class="text-lg font-bold">Arrival:</h4>
                     <ul class="list-disc pl-5">
-                        <li *ngFor="let path of stop.arrivalStopEvent[0].pathArray">{{ path }}</li>
+                        <li *ngFor="let path of stop.arrival[0].pathArray">{{ path }}</li>
                     </ul>
-                    <p>Planned Arrival: {{ stop.arrivalStopEvent[0].plannedDateTime | date:'shortTime' }}</p>
-                    <p>Line: {{ stop.arrivalStopEvent[0].line }}</p>
-                    <p>Planned Platform: {{ stop.arrivalStopEvent[0].plannedPlatform }}</p>
+                    <p>Planned Arrival: {{ stop.arrival[0].plannedDateTime | date:'shortTime' }}</p>
+                    <p>Line: {{ stop.arrival[0].line }}</p>
+                    <p>Planned Platform: {{ stop.arrival[0].plannedPlatform }}</p>
                 </div>
-                <div *ngIf="stop.departureStopEvent" class="mt-2">
+                <div *ngIf="stop.departure" class="mt-2">
                     <h4 class="text-lg font-bold">Departure:</h4>
                     <ul class="list-disc pl-5">
-                        <li *ngFor="let path of stop.departureStopEvent[0].pathArray">{{ path }}</li>
+                        <li *ngFor="let path of stop.departure[0].pathArray">{{ path }}</li>
                     </ul>
-                    <p>Planned Departure: {{ stop.departureStopEvent[0].plannedDateTime | date:'shortTime' }}</p>
-                    <p>Line: {{ stop.departureStopEvent[0].line }}</p>
-                    <p>Planned Platform: {{ stop.departureStopEvent[0].plannedPlatform }}</p>
+                    <p>Planned Departure: {{ stop.departure[0].plannedDateTime | date:'shortTime' }}</p>
+                    <p>Line: {{ stop.departure[0].line }}</p>
+                    <p>Planned Platform: {{ stop.departure[0].plannedPlatform }}</p>
                 </div>
                 <div *ngIf="stop.tripFlags" class="mt-2">
                     <h4 class="text-lg font-bold">Train Information:</h4>
