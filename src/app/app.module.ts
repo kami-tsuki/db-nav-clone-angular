@@ -22,6 +22,7 @@ import {ConfigService} from "../services/config.service";
 import {NavbarComponent} from "./shared/navbar/navbar.component";
 import {HeaderComponent} from "./shared/header/header.component";
 import {FooterComponent} from "./shared/footer/footer.component";
+import {CacheService} from "../services/cache.service";
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -63,6 +64,7 @@ export const routes: Routes = [
         HttpClient,
         provideRouter(routes),
         DbService,
+        CacheService,
         ConfigService,
         provideAnimationsAsync()],
     bootstrap: [

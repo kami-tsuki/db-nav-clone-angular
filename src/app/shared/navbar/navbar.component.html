@@ -1,8 +1,8 @@
 <nav class="bg-gray-800 text-white w-16 md:w-64 fixed h-full md:sticky top-0 z-50 transition-all duration-500 ease-in-out" [class.w-64]="showNames" [class.w-16]="!showNames">
     <ul class="space-y-2 p-4">
-        <li><a class="block py-2 px-4 rounded hover:bg-gray-700 flex items-center" routerLink="/home"><mat-icon>home</mat-icon><span *ngIf="showNames" class="ml-2">Home</span></a></li>
-        <li><a class="block py-2 px-4 rounded hover:bg-gray-700 flex items-center" routerLink="/search"><mat-icon>search</mat-icon><span *ngIf="showNames" class="ml-2">Search</span></a></li>
-        <li><a class="block py-2 px-4 rounded hover:bg-gray-700 flex items-center" routerLink="/navigations"><mat-icon>navigation</mat-icon><span *ngIf="showNames" class="ml-2">Navigations</span></a></li>
+        <li><a class="block py-2 px-4 rounded hover:bg-gray-700 flex items-center transition duration-200 ease-in-out" routerLink="/home"><mat-icon>home</mat-icon><span *ngIf="showNames" class="ml-2">Home</span></a></li>
+        <li><a class="block py-2 px-4 rounded hover:bg-gray-700 flex items-center transition duration-200 ease-in-out" routerLink="/search"><mat-icon>search</mat-icon><span *ngIf="showNames" class="ml-2">Search</span></a></li>
+        <li><a class="block py-2 px-4 rounded hover:bg-gray-700 flex items-center transition duration-200 ease-in-out" routerLink="/navigations"><mat-icon>navigation</mat-icon><span *ngIf="showNames" class="ml-2">Navigations</span></a></li>
     </ul>
-    <button class="absolute bottom-0 mb-4 ml-4" (click)="showNames = !showNames"><mat-icon>menu</mat-icon></button>
+    <button class="absolute bottom-0 mb-4 ml-4 bg-gray-700 hover:bg-gray-600 p-2 rounded transition duration-200 ease-in-out" (click)="showNames = !showNames"><mat-icon>menu</mat-icon></button>
 </nav>
