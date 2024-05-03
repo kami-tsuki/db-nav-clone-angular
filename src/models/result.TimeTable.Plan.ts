@@ -8,7 +8,7 @@ export interface TimetableStopEvent {
     cs: 'p' | 'a' | 'c';
     ct?: string;
     dc?: number;
-    hi?: number;
+    hidden?: number;
     line?: string;
     m?: Message[];
     pde?: string;
@@ -23,27 +23,27 @@ export interface TimetableStopEvent {
 }
 
 export interface HistoricDelay {
-    ar: string;
+    arrival: string;
     cod?: string;
     dp: string;
-    src: 'L' | 'NA' | 'NM' | 'V' | 'IA' | 'IM' | 'A';
+    source: 'L' | 'NA' | 'NM' | 'V' | 'IA' | 'IM' | 'A';
     ts: string;
 }
 
 export interface HistoricPlatformChange {
-    ar: string;
+    arrival: string;
     cot?: string;
     dp: string;
     ts: string;
 }
 
 export interface ConnectionElement {
-    cs: 'w' | 'n' | 'a';
+    connectionStatus: 'w' | 'n' | 'a';
     eva: number;
     id: string;
     ref: TimetableStop;
-    s: TimetableStop;
-    ts: string;
+    stop: TimetableStop;
+    timestamp: string;
 }
 
 interface ReferenceTrip {
@@ -61,11 +61,11 @@ interface ReferenceTrip {
     };
     sd: ReferenceTrip['ea'];
     tl: {
-        c: string;
-        f: string;
-        n: string;
-        o: string;
-        t: 'p' | 'e' | 'z' | 's' | 'h' | 'n';
+        category: string;
+        filterFlags: string;
+        number: string;
+        owner: string;
+        type: 'p' | 'e' | 'z' | 's' | 'h' | 'n';
     }[];
 }
 
@@ -120,12 +120,12 @@ export interface TimetableStop {
     };
     referenceTripRelations?: ReferenceTripRelation[];
     stops?: TimetableStop[];
-    tl?: {
-        c: string;
-        f: string;
-        n: string;
-        o: string;
-        t: 'p' | 'e' | 'z' | 's' | 'h' | 'n';
+    tripFlags?: {
+        category: string;
+        filterFlags: string;
+        number: string;
+        owner: string;
+        type: 'p' | 'e' | 'z' | 's' | 'h' | 'n';
     }[];
 }
 
@@ -159,36 +159,36 @@ export function convertToModel(data: any): Timetable {
                     plannedTime: dp.$.pt,
                     plannedDateTime: dp.$.pt ? convertToDateTime(dp.$.pt) : undefined
                 })) : undefined,
-                tl: stop.tl ? stop.tl.map((tl: any) => ({
-                    c: tl.$.c,
-                    f: tl.$.f,
-                    n: tl.$.n,
-                    o: tl.$.o,
-                    t: tl.$.t as 'p' | 'e' | 'z' | 's' | 'h' | 'n'
+                tripFlags: stop.tl ? stop.tl.map((tl: any) => ({
+                    category: tl.$.c,
+                    filterFlags: tl.$.f,
+                    number: tl.$.n,
+                    owner: tl.$.o,
+                    type: tl.$.t as 'p' | 'e' | 'z' | 's' | 'h' | 'n'
                 })) : undefined,
                 connections: stop.conn ? stop.conn.map((conn: any) => ({
-                    cs: conn.$.cs as 'w' | 'n' | 'a',
+                    connectionStatus: conn.$.cs as 'w' | 'n' | 'a',
                     eva: conn.$.eva,
                     id: conn.$.id,
                     ref: {
                         eva: conn.ref.$.eva,
                         id: conn.ref.$.id
                     },
-                    s: {
+                    stop: {
                         eva: conn.s.$.eva,
                         id: conn.s.$.id
                     },
-                    ts: conn.$.ts
+                    timestamp: conn.$.ts
                 })) : undefined,
                 messages: stop.m ? stop.m.map((msg: any) => ({
                     code: msg.$.c,
                     category: msg.$.cat,
                     deleted: msg.$.del,
                     distributorMessages: msg.dm ? msg.dm.map((dm: any) => ({
-                        int: dm.$.int,
-                        n: dm.$.n,
-                        t: dm.$.t as 's' | 'r' | 'f' | 'x',
-                        ts: dm.$.ts
+                        internalText: dm.$.int,
+                        number: dm.$.n,
+                        type: dm.$.t as 's' | 'r' | 'f' | 'x',
+                        timestamp: dm.$.ts
                     })) : undefined,
                     externalCategory: msg.$.ec,
                     externalLink: msg.$.elnk,
@@ -200,20 +200,20 @@ export function convertToModel(data: any): Timetable {
                     priority: msg.$.pr as '1' | '2' | '3' | '4',
                     status: msg.$.t as 'h' | 'q' | 'f' | 'd' | 'i' | 'u' | 'r' | 'c',
                     tripLabel: msg.tl ? msg.tl.map((tl: any) => ({
-                        c: tl.$.c,
-                        f: tl.$.f,
-                        n: tl.$.n,
-                        o: tl.$.o,
-                        t: tl.$.t as 'p' | 'e' | 'z' | 's' | 'h' | 'n'
+                        category: tl.$.c,
+                        filterFlags: tl.$.f,
+                        number: tl.$.n,
+                        owner: tl.$.o,
+                        type: tl.$.t as 'p' | 'e' | 'z' | 's' | 'h' | 'n'
                     })) : undefined,
                     to: msg.$.to,
                     timestamp: msg.$.ts
                 })) : undefined,
                 historicDelays: stop.hd ? stop.hd.map((delay: any) => ({
-                    ar: delay.ar,
+                    arrival: delay.ar,
                     cod: delay.$.cod,
                     dp: delay.dp,
-                    src: delay.$.src as 'L' | 'NA' | 'NM' | 'V' | 'IA' | 'IM' | 'A',
+                    source: delay.$.src as 'L' | 'NA' | 'NM' | 'V' | 'IA' | 'IM' | 'A',
                     ts: delay.$.ts
                 })) : undefined,
                 historicPlatformChanges: stop.hpc ? stop.hpc.map((platformChange: any) => ({
@@ -243,11 +243,11 @@ export function convertToModel(data: any): Timetable {
                             pt: relation.rt.sd.$.pt
                         },
                         tl: relation.rt.tl.map((tl: any) => ({
-                            c: tl.$.c,
-                            f: tl.$.f,
-                            n: tl.$.n,
-                            o: tl.$.o,
-                            t: tl.$.t as 'p' | 'e' | 'z' | 's' | 'h' | 'n'
+                            category: tl.$.c,
+                            filterFlags: tl.$.f,
+                            number: tl.$.n,
+                            owner: tl.$.o,
+                            type: tl.$.t as 'p' | 'e' | 'z' | 's' | 'h' | 'n'
                         }))
                     },
                     rts: relation.$.rts as 'b' | 'e' | 'c' | 's' | 'a'
@@ -273,19 +273,19 @@ export function convertToModel(data: any): Timetable {
                             pt: rt.sd.$.pt
                         },
                         tl: rt.tl.map((tl: any) => ({
-                            c: tl.$.c,
-                            f: tl.$.f,
-                            n: tl.$.n,
-                            o: tl.$.o,
-                            t: tl.$.t as 'p' | 'e' | 'z' | 's' | 'h' | 'n'
+                            category: tl.$.c,
+                            filterFlags: tl.$.f,
+                            number: tl.$.n,
+                            owner: tl.$.o,
+                            type: tl.$.t as 'p' | 'e' | 'z' | 's' | 'h' | 'n'
                         }))
                     })) : undefined,
                     tl: stop.ref.tl.map((tl: any) => ({
-                        c: tl.$.c,
-                        f: tl.$.f,
-                        n: tl.$.n,
-                        o: tl.$.o,
-                        t: tl.$.t as 'p' | 'e' | 'z' | 's' | 'h' | 'n'
+                        category: tl.$.c,
+                        filterFlags: tl.$.f,
+                        number: tl.$.n,
+                        owner: tl.$.o,
+                        type: tl.$.t as 'p' | 'e' | 'z' | 's' | 'h' | 'n'
                     }))
                 } : undefined
             };

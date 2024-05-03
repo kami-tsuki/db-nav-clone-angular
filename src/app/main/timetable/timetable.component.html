@@ -16,12 +16,20 @@
                 </div>
                 <div *ngIf="stop.departureStopEvent" class="mt-2">
                     <h4 class="text-lg font-bold">Departure:</h4>
-                    <p>Planned Departure: {{ stop.departureStopEvent[0].plannedDateTime | date:'shortTime' }}</p>
-                    <p>Line: {{ stop.departureStopEvent[0].line }}</p>
-                    <p>Planned Platform: {{ stop.departureStopEvent[0].plannedPlatform }}</p>
                     <ul class="list-disc pl-5">
                         <li *ngFor="let path of stop.departureStopEvent[0].pathArray">{{ path }}</li>
                     </ul>
+                    <p>Planned Departure: {{ stop.departureStopEvent[0].plannedDateTime | date:'shortTime' }}</p>
+                    <p>Line: {{ stop.departureStopEvent[0].line }}</p>
+                    <p>Planned Platform: {{ stop.departureStopEvent[0].plannedPlatform }}</p>
+                </div>
+                <div *ngIf="stop.tripFlags" class="mt-2">
+                    <h4 class="text-lg font-bold">Train Information:</h4>
+                    <p>Category: {{ stop.tripFlags[0].category }}</p>
+                    <p>Filter Flags: {{ stop.tripFlags[0].filterFlags }}</p>
+                    <p>Number: {{ stop.tripFlags[0].number }}</p>
+                    <p>Owner: {{ stop.tripFlags[0].owner }}</p>
+                    <p>Type: {{ stop.tripFlags[0].type }}</p>
                 </div>
             </div>
         </ng-container>
