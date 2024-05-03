@@ -23,18 +23,18 @@ export interface TimetableStopEvent {
 }
 
 export interface HistoricDelay {
-    arrival: string;
-    cod?: string;
-    dp: string;
-    source: 'L' | 'NA' | 'NM' | 'V' | 'IA' | 'IM' | 'A';
-    ts: string;
+    arrivalTimestamp: string;
+    causeOfDelay?: string;
+    departureTimestamp: string;
+    delaySource: 'L' | 'NA' | 'NM' | 'V' | 'IA' | 'IM' | 'A';
+    timestamp: string;
 }
 
 export interface HistoricPlatformChange {
-    arrival: string;
-    cot?: string;
-    dp: string;
-    ts: string;
+    arrivalPlatform: string;
+    causeOfChange?: string;
+    departurePlatform: string;
+    timestamp: string;
 }
 
 export interface ConnectionElement {
@@ -210,37 +210,37 @@ export function convertToModel(data: any): Timetable {
                     timestamp: msg.$.ts
                 })) : undefined,
                 historicDelays: stop.hd ? stop.hd.map((delay: any) => ({
-                    arrival: delay.ar,
-                    cod: delay.$.cod,
-                    dp: delay.dp,
-                    source: delay.$.src as 'L' | 'NA' | 'NM' | 'V' | 'IA' | 'IM' | 'A',
-                    ts: delay.$.ts
+                    arrivalTimestamp: delay.ar,
+                    causeOfDelay: delay.$.cod,
+                    departureTimeStamp: delay.dp,
+                    delaySource: delay.$.src as 'L' | 'NA' | 'NM' | 'V' | 'IA' | 'IM' | 'A',
+                    timestamp: delay.$.ts
                 })) : undefined,
                 historicPlatformChanges: stop.hpc ? stop.hpc.map((platformChange: any) => ({
-                    ar: platformChange.ar,
-                    cot: platformChange.$.cot,
-                    dp: platformChange.dp,
-                    ts: platformChange.$.ts
+                    arrivalPlatform: platformChange.ar,
+                    causeOfChange: platformChange.$.cot,
+                    departurePlatform: platformChange.dp,
+                    timestamp: platformChange.$.ts
                 })) : undefined,
                 referenceTripRelations: stop.rtr ? stop.rtr.map((relation: any) => ({
-                    rt: {
-                        c: relation.rt.$.c,
+                    referenceTrip: {
+                        cancellationFlag: relation.rt.$.c,
                         ea: {
                             eva: relation.rt.ea.$.eva,
-                            i: Number(relation.rt.ea.$.i),
-                            n: relation.rt.ea.$.n,
-                            pt: relation.rt.ea.$.pt
+                            index: Number(relation.rt.ea.$.i),
+                            name: relation.rt.ea.$.n,
+                            plannedTime: relation.rt.ea.$.pt
                         },
                         id: relation.rt.$.id,
                         rtl: {
-                            c: relation.rt.rtl.$.c,
-                            n: relation.rt.rtl.$.n
+                            category: relation.rt.rtl.$.c,
+                            number: relation.rt.rtl.$.n
                         },
                         sd: {
                             eva: relation.rt.sd.$.eva,
-                            i: Number(relation.rt.sd.$.i),
-                            n: relation.rt.sd.$.n,
-                            pt: relation.rt.sd.$.pt
+                            index: Number(relation.rt.sd.$.i),
+                            number: relation.rt.sd.$.n,
+                            plannedTime: relation.rt.sd.$.pt
                         },
                         tl: relation.rt.tl.map((tl: any) => ({
                             category: tl.$.c,
