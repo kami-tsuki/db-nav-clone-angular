@@ -315,7 +315,7 @@ export function convertToModel(data: any): Timetable {
     return timetable;
 }
 
-function convertToDateTime(input: string): Date {
+export function convertToDateTime(input: string): Date {
     const year = 2000 + parseInt(input.slice(0, 2)); // Add 2000 to get the full year, with the hope this program has no need to work in 20th or 22th century LOL
     const month = parseInt(input.slice(2, 4)) - 1; // Subtract 1 because months are 0-indexed in JavaScript
     const day = parseInt(input.slice(4, 6));
@@ -323,4 +323,21 @@ function convertToDateTime(input: string): Date {
     const minute = parseInt(input.slice(8, 10));
 
     return new Date(year, month, day, hour, minute);
+}
+
+export function getTrainLine(stop: TimetableStop) : string {
+    if (stop && stop.tripFlags && stop.tripFlags[0]) {
+        if (stop.arrival && stop.arrival[0] && stop.arrival[0].line && stop.departure && stop.departure[0] && stop.departure[0].line) {
+            if (stop.departure[0].line == stop.arrival[0].line) {
+                return `${stop.tripFlags[0].category} ${stop.arrival[0].line}`;
+            } else {
+                return `${stop.tripFlags[0].category} ${stop.arrival[0].line} > ${stop.tripFlags[0].category} ${stop.departure[0].line}`;
+            }
+        } else if (stop.arrival && stop.arrival[0] && stop.arrival[0].line) {
+            return `${stop.tripFlags[0].category} ${stop.arrival[0].line}`;
+        } else if (stop.departure && stop.departure[0] && stop.departure[0].line) {
+            return `${stop.tripFlags[0].category} ${stop.departure[0].line}`;
+        }
+    }
+    return '';
 }

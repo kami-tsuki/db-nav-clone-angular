@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Train Information</h1>
+<div *ngIf="data && data.stop && data.stop.tripFlags && data.stop.tripFlags[0]" mat-dialog-content>
+    <h1>{{ getTrainLine(data.stop) }}</h1>
+    <p>Number: {{ data.stop.tripFlags[0].number }}</p>
+    <p>Owner: {{ data.stop.tripFlags[0].owner }}</p>
+    <p>Flags: {{ data.stop.tripFlags[0].filterFlags }}</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+</div>

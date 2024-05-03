@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {DbService} from "../../../services/db.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {convertToModel, Timetable} from "../../../models/result.TimeTable.Plan";
+import {convertToModel, Timetable, TimetableStop} from "../../../models/result.TimeTable.Plan";
 import {timeInterval} from "rxjs";
+import {MatDialog} from '@angular/material/dialog';
+import {TrainInfoDialog} from "./train-info-dialog/train-info-dialog.component";
 
 @Component({
     selector: 'app-timetable',
@@ -15,7 +17,8 @@ export class TimetableComponent implements OnInit {
     constructor(
         private dbService: DbService,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        public dialog: MatDialog
     ) {
     }
 
@@ -45,6 +48,15 @@ export class TimetableComponent implements OnInit {
                 console.log("timetable: ", this.timetable)
             });
     }
+
+    openDialog(stop: any) {
+        this.dialog.open(TrainInfoDialog, {
+            data: {
+                stop: stop
+            }
+        });
+    }
+
 
     protected readonly timeInterval = timeInterval;
 }

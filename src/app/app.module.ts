@@ -14,7 +14,7 @@ import {
     IconExplanationDialogComponent
 } from "./main/search/station-detail/icon-explanation-dialog/icon-explanation-dialog.component";
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
-import {MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/material/dialog";
+import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
@@ -24,6 +24,7 @@ import {HeaderComponent} from "./shared/header/header.component";
 import {FooterComponent} from "./shared/footer/footer.component";
 import {CacheService} from "../services/cache.service";
 import {TimetableComponent} from "./main/timetable/timetable.component";
+import {TrainInfoDialog} from "./main/timetable/train-info-dialog/train-info-dialog.component";
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -45,7 +46,8 @@ export const routes: Routes = [
         NavigationsComponent,
         NavbarComponent,
         FooterComponent,
-        TimetableComponent
+        TimetableComponent,
+    TrainInfoDialog,
     ],
     imports: [
         HttpClientModule,
@@ -61,7 +63,8 @@ export const routes: Routes = [
         MatButton,
         MatDialogClose,
         MatIcon,
-        MatIconButton
+        MatIconButton,
+        MatDialogTitle
     ],
     providers: [
         HttpClient,
@@ -83,7 +86,8 @@ export const routes: Routes = [
         NavigationsComponent,
         NavbarComponent,
         FooterComponent,
-        TimetableComponent
+        TimetableComponent,
+        TrainInfoDialog,
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

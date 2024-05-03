@@ -1,0 +1,31 @@
+.path-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+.path-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10px; /* Adjust this to match the horizontal position of the dots */
+    bottom: 0;
+    width: 2px;
+    background-color: #000;
+}
+
+.path-stop {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 5vh;
+}
+
+.path-dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #000;
+    margin-right: 1vw;
+}
