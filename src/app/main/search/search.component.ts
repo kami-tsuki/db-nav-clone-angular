@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {DbService} from "../../../services/db.service";
-import {Station} from "../../../models/resultModel";
+import {Station} from "../../../models/result.StationData.Stations";
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {typeCheckFilePath} from "@angular/compiler-cli/src/ngtsc/typecheck";

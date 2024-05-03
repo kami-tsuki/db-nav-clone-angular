@@ -12,6 +12,7 @@ export class CacheService {
     private cache = new Map<string, CacheContent>();
 
     constructor() {
+        setInterval(() => this.removeExpiredEntries(), 10000);
     }
 
     get(key: string): any {
@@ -60,5 +61,16 @@ export class CacheService {
 
     entries(): IterableIterator<[string, CacheContent]> {
         return this.cache.entries();
+    }
+
+    private removeExpiredEntries(): void {
+        let removedCount = 0;
+        for (const [key, cacheContent] of this.cache.entries()) {
+            if (cacheContent.expiry < Date.now()) {
+                this.cache.delete(key);
+                removedCount++;
+            }
+        }
+        console.log(`Removed ${removedCount} expired cache entries.`);
     }
 }

@@ -23,6 +23,7 @@ import {NavbarComponent} from "./shared/navbar/navbar.component";
 import {HeaderComponent} from "./shared/header/header.component";
 import {FooterComponent} from "./shared/footer/footer.component";
 import {CacheService} from "../services/cache.service";
+import {TimetableComponent} from "./main/timetable/timetable.component";
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -42,7 +43,8 @@ export const routes: Routes = [
         HomeComponent,
         NavigationsComponent,
         NavbarComponent,
-        FooterComponent
+        FooterComponent,
+        TimetableComponent
     ],
     imports: [
         HttpClientModule,
@@ -79,7 +81,8 @@ export const routes: Routes = [
         HomeComponent,
         NavigationsComponent,
         NavbarComponent,
-        FooterComponent
+        FooterComponent,
+        TimetableComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

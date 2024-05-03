@@ -1,16 +1,18 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Station} from '../../../../models/resultModel';
+import {Station} from '../../../../models/result.StationData.Stations';
 import {MatDialog} from '@angular/material/dialog';
 import {IconExplanationDialogComponent} from "./icon-explanation-dialog/icon-explanation-dialog.component";
 import {ConfigService} from "../../../../services/config.service";
-import {join} from "@angular/compiler-cli";
 import {
     Explanation,
     IconExplanationConfigModel,
-    Explanations,
     ExplanationsModel
 } from "../../../../models/iconExplanationConfigModel";
-import {handleAutoChangeDetectionStatus} from "@angular/cdk/testing";
+import {DbService} from "../../../../services/db.service";
+import {
+    convertToModel,
+    Timetable
+} from "../../../../models/result.TimeTable.Plan";
 
 
 @Component({
@@ -18,16 +20,16 @@ import {handleAutoChangeDetectionStatus} from "@angular/cdk/testing";
     templateUrl: './station-detail.component.html',
     styleUrls: ['./station-detail.component.css']
 })
-export class StationDetailComponent{
+export class StationDetailComponent {
     @Input() station: Station;
     config: IconExplanationConfigModel;
 
     constructor(
         private dialog: MatDialog,
+        private dbService: DbService,
         private configService: ConfigService) {
         this.configService.fetchConfig("data/iconExplanations.json").subscribe(
             (value: ExplanationsModel) => {
-                console.log(value);
                 this.config = new IconExplanationConfigModel(value);
             }
         );
@@ -49,9 +51,9 @@ export class StationDetailComponent{
                 color: color
             }
         })
-
     }
 
-    protected readonly HashChangeEvent = HashChangeEvent;
-    protected readonly handleAutoChangeDetectionStatus = handleAutoChangeDetectionStatus;
+    openTimeTablePage() {
+
+    }
 }
