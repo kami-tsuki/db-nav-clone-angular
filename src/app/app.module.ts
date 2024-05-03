@@ -30,6 +30,7 @@ export const routes: Routes = [
     {path: 'search', component: SearchComponent},
     {path: 'navigations', component: NavigationsComponent},
     {path: 'station-detail', component: StationDetailComponent},
+    {path: 'timetable', component: TimetableComponent},
     {path: '', redirectTo: '/home', pathMatch: 'full'},
 ];
 

@@ -3,6 +3,7 @@ import {Station} from '../../../../models/result.StationData.Stations';
 import {MatDialog} from '@angular/material/dialog';
 import {IconExplanationDialogComponent} from "./icon-explanation-dialog/icon-explanation-dialog.component";
 import {ConfigService} from "../../../../services/config.service";
+import {Router} from "@angular/router";
 import {
     Explanation,
     IconExplanationConfigModel,
@@ -27,7 +28,8 @@ export class StationDetailComponent {
     constructor(
         private dialog: MatDialog,
         private dbService: DbService,
-        private configService: ConfigService) {
+        private configService: ConfigService,
+        private router: Router ) {
         this.configService.fetchConfig("data/iconExplanations.json").subscribe(
             (value: ExplanationsModel) => {
                 this.config = new IconExplanationConfigModel(value);
@@ -54,6 +56,7 @@ export class StationDetailComponent {
     }
 
     openTimeTablePage() {
-
+        const evaNo = this.station.evaNumbers[0]?.number;
+        this.router.navigate(['/timetable'], { queryParams: { evaNo } });
     }
 }

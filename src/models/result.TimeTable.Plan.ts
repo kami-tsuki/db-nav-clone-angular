@@ -1,3 +1,5 @@
+import {dateTimestampProvider} from "rxjs/internal/scheduler/dateTimestampProvider";
+
 export interface TimetableStopEvent {
     cde?: string;
     clt?: string;
@@ -7,13 +9,15 @@ export interface TimetableStopEvent {
     ct?: string;
     dc?: number;
     hi?: number;
-    l?: string;
+    line?: string;
     m?: Message[];
     pde?: string;
-    pp?: string;
-    ppth?: string;
+    plannedPlatform?: string;
+    plannedPath?: string;
+    pathArray?: string[];
     ps?: TimetableStopEvent['cs'];
-    pt?: string;
+    plannedTime?: string;
+    plannedDateTime?: Date;
     tra?: string;
     wings?: string;
 }
@@ -102,9 +106,9 @@ export interface Message {
 }
 
 export interface TimetableStop {
-    arrivalStopEvent?: TimetableStopEvent;
+    arrivalStopEvent?: TimetableStopEvent[];
     connections?: ConnectionElement[];
-    departureStopEvent?: TimetableStopEvent;
+    departureStopEvent?: TimetableStopEvent[];
     evaStationNumber: number;
     historicDelays?: HistoricDelay[];
     historicPlatformChanges?: HistoricPlatformChange[];
@@ -140,16 +144,20 @@ export function convertToModel(data: any): Timetable {
                 id: stop.$.id,
                 evaStationNumber: stop.$.eva,
                 arrivalStopEvent: stop.ar ? stop.ar.map((ar: any) => ({
-                    l: ar.$.l,
-                    pp: ar.$.pp,
-                    ppth: ar.$.ppth,
-                    pt: ar.$.pt
+                    line: ar.$.l,
+                    plannedPlatform: ar.$.pp,
+                    plannedPath: ar.$.ppth,
+                    pathArray: ar.$.ppth ?  ar.$.ppth.split('|') : undefined,
+                    plannedTime: ar.$.pt,
+                    plannedDateTime: ar.$.pt ? convertToDateTime(ar.$.pt) : undefined
                 })) : undefined,
                 departureStopEvent: stop.dp ? stop.dp.map((dp: any) => ({
-                    l: dp.$.l,
-                    pp: dp.$.pp,
-                    ppth: dp.$.ppth,
-                    pt: dp.$.pt
+                    line: dp.$.l,
+                    plannedPlatform: dp.$.pp,
+                    plannedPath: dp.$.ppth,
+                    pathArray: dp.$.ppth ?  dp.$.ppth.split('|') : undefined,
+                    plannedTime: dp.$.pt,
+                    plannedDateTime: dp.$.pt ? convertToDateTime(dp.$.pt) : undefined
                 })) : undefined,
                 tl: stop.tl ? stop.tl.map((tl: any) => ({
                     c: tl.$.c,
@@ -285,4 +293,14 @@ export function convertToModel(data: any): Timetable {
         })
     };
     return timetable;
+}
+
+function convertToDateTime(input: string): Date {
+    const year = 2000 + parseInt(input.slice(0, 2)); // Add 2000 to get the full year, with the hope this program has no need to work in 20th or 22th century LOL
+    const month = parseInt(input.slice(2, 4)) - 1; // Subtract 1 because months are 0-indexed in JavaScript
+    const day = parseInt(input.slice(4, 6));
+    const hour = parseInt(input.slice(6, 8));
+    const minute = parseInt(input.slice(8, 10));
+
+    return new Date(year, month, day, hour, minute);
 }
