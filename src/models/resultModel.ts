@@ -1,3 +1,5 @@
+import {Explanation, Explanations} from "./iconExplanationConfigModel";
+
 export interface result {
     data: data;
     msg: {
@@ -19,8 +21,14 @@ export interface data {
     total: number;
 }
 
-export interface Station {
-    [key: string]: any;
+export class Station {
+    getBoolByKey(key: string): any | undefined {
+    if (this.hasOwnProperty(key)) {
+        return this[key as keyof object];
+    } else {
+        return undefined;
+    }
+}
 
     federalState: string;
     aufgabentraeger: aufgabentraeger;

@@ -10,6 +10,7 @@ import {
     Explanations,
     ExplanationsModel
 } from "../../../../models/iconExplanationConfigModel";
+import {handleAutoChangeDetectionStatus} from "@angular/cdk/testing";
 
 
 @Component({
@@ -17,7 +18,7 @@ import {
     templateUrl: './station-detail.component.html',
     styleUrls: ['./station-detail.component.css']
 })
-export class StationDetailComponent {
+export class StationDetailComponent{
     @Input() station: Station;
     config: IconExplanationConfigModel;
 
@@ -50,4 +51,7 @@ export class StationDetailComponent {
         })
 
     }
+
+    protected readonly HashChangeEvent = HashChangeEvent;
+    protected readonly handleAutoChangeDetectionStatus = handleAutoChangeDetectionStatus;
 }

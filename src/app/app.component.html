@@ -1,10 +1,10 @@
-<div class="flex flex-col min-h-screen md:flex-row">
-    <app-navbar></app-navbar>
-    <div class="flex flex-col flex-grow overflow-auto mt-16 md:mt-0 md:ml-16 md:ml-64 transition-all duration-500 ease-in-out" [class.md:ml-64]="showNames" [class.md:ml-16]="!showNames">
-        <app-header></app-header>
-        <main class="flex-grow">
+<div class="flex flex-col h-screen">
+    <app-header class="sticky top-0 z-50 w-full"></app-header>
+    <div class="flex flex-grow overflow-hidden">
+        <app-navbar class="sticky top-0 h-full overflow-auto"></app-navbar>
+        <main class="flex-grow overflow-auto pb-16">
             <router-outlet></router-outlet>
         </main>
-        <app-footer></app-footer>
     </div>
+    <app-footer class="sticky bottom-0 z-50 w-full h-16"></app-footer>
 </div>

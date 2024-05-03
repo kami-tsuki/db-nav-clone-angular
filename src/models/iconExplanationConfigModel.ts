@@ -25,17 +25,16 @@ export interface Explanations {
 
 }
 
-export interface  ExplanationsModel {
+export interface ExplanationsModel {
     explanations: Explanations;
 }
 
 export class IconExplanationConfigModel {
 
-
-        constructor(
-            private rootObj :ExplanationsModel
-        ) {
-        }
+    constructor(
+        private rootObj: ExplanationsModel
+    ) {
+    }
 
     getByKey(key: string): Explanation {
         if (this.rootObj.explanations.hasOwnProperty(key)) {

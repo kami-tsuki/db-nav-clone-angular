@@ -8,29 +8,82 @@
                 </div>
             </div>
             <div class="flex w-full md:w-1/2 justify-start md:justify-end items-center mt-4 md:mt-0">
-                <ng-container *ngFor="let feature of ['hasBicycle', 'hasSteplessAccess', 'hasCarRental', 'hasWifi', 'hasLocalPublicTransport', 'hasTaxiRank', 'hasParking', 'hasLockerSystem', 'hasPublicFacilities', 'hasRailwayMission', 'hasDBLounge']">
-                    <i (click)="openExplanationDialog(feature, station[feature] ? 'green' : 'red')"
-                       id="station-{{station.number}}-{{feature}}-icon" class="fas mr-2 cursor-pointer"
-                       [ngClass]="{
-                           'fa-bicycle': feature === 'hasBicycle',
-                           'fa-wheelchair': feature === 'hasSteplessAccess',
-                           'fa-car': feature === 'hasCarRental',
-                           'fa-wifi': feature === 'hasWifi',
-                           'fa-bus': feature === 'hasLocalPublicTransport',
-                           'fa-taxi': feature === 'hasTaxiRank',
-                           'fa-parking': feature === 'hasParking',
-                           'fa-lock': feature === 'hasLockerSystem',
-                           'fa-toilet': feature === 'hasPublicFacilities',
-                           'fa-hospital': feature === 'hasRailwayMission',
-                           'fa-coffee': feature === 'hasDBLounge',
-                           'text-green-500': station[feature],
-                           'text-gray-500': station[feature] === undefined,
-                           'text-red-500': !station[feature]
-                       }"
-                       [title]="config.getByKey(feature).title.en"
-                       data-tippy-content="Tooltip content">
-                    </i>
-                </ng-container>
+                <i (click)="openExplanationDialog('hasBicycle',  station.hasBicycleParking ? 'green' : 'red')"
+                   id="station-{{station.number}}-hasBicycle-icon"
+                   class="fas fa-bicycle mr-2 cursor-pointer"
+                   [ngClass]="station.hasBicycleParking ? 'text-green-600' : 'text-red-600'"
+                   [title]="'has bicycle'"
+                   data-tippy-content="Tooltip content"></i>
+
+                <i (click)="openExplanationDialog('hasSteplessAccess',  station.hasSteplessAccess ? 'green' : 'red')"
+                   id="station-{{station.number}}-hasSteplessAccess-icon"
+                   class="fas fa-wheelchair mr-2 cursor-pointer"
+                   [ngClass]="station.hasSteplessAccess ? 'text-green-600' : 'text-red-600'"
+                   [title]="'has stepless access'"
+                   data-tippy-content="Tooltip content"></i>
+
+                <i (click)="openExplanationDialog('hasCarRental',  station.hasCarRental ? 'green' : 'red')"
+                   id="station-{{station.number}}-hasCarRental-icon"
+                   class="fas fa-car mr-2 cursor-pointer"
+                   [ngClass]="station.hasCarRental ? 'text-green-600' : 'text-red-600'"
+                   [title]="'has car rental'"
+                   data-tippy-content="Tooltip content"></i>
+
+                <i (click)="openExplanationDialog('hasWifi',  station.hasWifi ? 'green' : 'red')"
+                   id="station-{{station.number}}-hasWifi-icon"
+                   class="fas fa-wifi mr-2 cursor-pointer"
+                   [ngClass]="station.hasWifi ? 'text-green-600' : 'text-red-600'"
+                   [title]="'has wifi'"
+                   data-tippy-content="Tooltip content"></i>
+
+                <i (click)="openExplanationDialog('hasLocalPublicTransport',  station.hasLocalPublicTransport ? 'green' : 'red')"
+                   id="station-{{station.number}}-hasLocalPublicTransport-icon"
+                   class="fas fa-bus mr-2 cursor-pointer"
+                   [ngClass]="station.hasLocalPublicTransport ? 'text-green-600' : 'text-red-600'"
+                   [title]="'has local public transport'"
+                   data-tippy-content="Tooltip content"></i>
+
+                <i (click)="openExplanationDialog('hasTaxiRank',  station.hasTaxiRank ? 'green' : 'red')"
+                   id="station-{{station.number}}-hasTaxiRank-icon"
+                   class="fas fa-taxi mr-2 cursor-pointer"
+                   [ngClass]="station.hasTaxiRank ? 'text-green-600' : 'text-red-600'"
+                   [title]="'has taxi rank'"
+                   data-tippy-content="Tooltip content"></i>
+
+                <i (click)="openExplanationDialog('hasParking',  station.hasParking ? 'green' : 'red')"
+                   id="station-{{station.number}}-hasParking-icon"
+                   class="fas fa-parking mr-2 cursor-pointer"
+                   [ngClass]="station.hasParking ? 'text-green-600' : 'text-red-600'"
+                   [title]="'has parking'"
+                   data-tippy-content="Tooltip content"></i>
+
+                <i (click)="openExplanationDialog('hasLockerSystem',  station.hasLockerSystem ? 'green' : 'red')"
+                   id="station-{{station.number}}-hasLockerSystem-icon"
+                   class="fas fa-lock mr-2 cursor-pointer"
+                   [ngClass]="station.hasLockerSystem ? 'text-green-600' : 'text-red-600'"
+                   [title]="'has locker system'"
+                   data-tippy-content="Tooltip content"></i>
+
+                <i (click)="openExplanationDialog('hasPublicFacilities',  station.hasPublicFacilities ? 'green' : 'red')"
+                   id="station-{{station.number}}-hasPublicFacilities-icon"
+                   class="fas fa-toilet mr-2 cursor-pointer"
+                   [ngClass]="station.hasPublicFacilities ? 'text-green-600' : 'text-red-600'"
+                   [title]="'has public facilities'"
+                   data-tippy-content="Tooltip content"></i>
+
+                <i (click)="openExplanationDialog('hasRailwayMission',  station.hasRailwayMission ? 'green' : 'red')"
+                   id="station-{{station.number}}-hasRailwayMission-icon"
+                   class="fas fa-hospital mr-2 cursor-pointer"
+                   [ngClass]="station.hasRailwayMission ? 'text-green-600' : 'text-red-600'"
+                   [title]="'has railway mission'"
+                   data-tippy-content="Tooltip content"></i>
+
+                <i (click)="openExplanationDialog('hasDBLounge',  station.hasDBLounge ? 'green' : 'red')"
+                   id="station-{{station.number}}-hasDBLounge-icon"
+                   class="fas fa-coffee mr-2 cursor-pointer"
+                   [ngClass]="station.hasDBLounge ? 'text-green-600' : 'text-red-600'"
+                   [title]="'has DB lounge'"
+                   data-tippy-content="Tooltip content"></i>
             </div>
         </div>
     </div>
