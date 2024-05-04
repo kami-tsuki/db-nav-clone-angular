@@ -29,16 +29,16 @@ export class DbService {
         if (!forceRequest) {
             const cachedResponse = this.cacheService.get(cacheKey);
             if (cachedResponse) {
-                console.log("cache hit");
+                console.log("cache hit: ", cachedResponse);
                 return of(cachedResponse);
             }
         }
 
-        let response;
-        response = this.http.get(url, {headers, params, observe: 'response', responseType: 'json'}).pipe(
+        return this.http.get(url, {headers, params, observe: 'response', responseType: 'json'}).pipe(
             map(response => {
+                let result;
                 if (response.body === undefined || response.status !== 200) {
-                    return {
+                    result = {
                         data: null,
                         msg: {
                             error: true,
@@ -51,7 +51,7 @@ export class DbService {
                         }
                     };
                 } else {
-                    return {
+                    result = {
                         data: response.body as string,
                         msg: {
                             error: false,
@@ -64,12 +64,12 @@ export class DbService {
                         }
                     };
                 }
+
+                if (addToCache) this.cacheService.set(cacheKey, result, 60000);
+                return result;
             }),
             shareReplay(1)
         );
-
-        if (addToCache) this.cacheService.set(cacheKey, response, 60000);
-        return response;
     }
 
     private fetchXmlData(url: string, params: HttpParams, forceRequest: boolean = false, addToCache: boolean = true): any {
@@ -83,7 +83,7 @@ export class DbService {
         if (!forceRequest) {
             const cachedResponse = this.cacheService.get(cacheKey);
             if (cachedResponse) {
-                console.log("cache hit");
+                console.log("cache hit: ", cachedResponse);
                 return of(cachedResponse);
             }
         }

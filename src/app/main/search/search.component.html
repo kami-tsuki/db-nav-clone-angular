@@ -29,4 +29,6 @@
         <app-station-detail class="w-full" *ngFor="let result of results; let i = index" [station]="result"
                             [class.bg-gray-200]="i % 2 === 0"></app-station-detail>
     </div>
+    <div *ngIf="isLoading" class="loading-spinner"></div>
+    <div *ngIf="!isLoading && !results.length" class="no-results">No results found</div>
 </div>

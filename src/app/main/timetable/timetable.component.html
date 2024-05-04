@@ -28,21 +28,21 @@
                         </div>
                     </div>
                     <div class="flex flex-col w-full sm:w-1/2 mt-4 sm:mt-0 sm:pl-4">
-                        <div (click)="openDialog(stop)" class="cursor-pointer hover:bg-gray-50 p-2 rounded-lg"
-                            *ngIf="(stop.arrival && stop.arrival[0]?.line) || (stop.departure && stop.departure[0]?.line) ">
-                            <div *ngIf="stop.arrival && stop.arrival[0]?.line" class="mt-2">
-                                <i class="fas fa-train mt-2"></i><span class="mt-2"
-                                *ngIf="stop.tripFlags && stop.tripFlags[0]?.category ">{{ stop.tripFlags[0].category }}</span>
-                                <span class="mt-2">{{ stop.arrival[0].line }}</span>
+                        <div (click)="openDialog(stop)" class="cursor-pointer hover:bg-gray-50 p-2 rounded-lg">
+                            <div *ngIf="stop.arrival" class="mt-2">
+                                <i class="fas fa-train mt-2"></i>
+                                <span class="mt-2"
+                                      *ngIf="stop.tripFlags && stop.tripFlags[0]?.category">{{ stop.tripFlags[0].category }}</span>
+                                <span class="mt-2" *ngIf="stop.arrival[0]?.line">{{ stop.arrival[0].line }}</span>
                             </div>
-                            <div
-                                *ngIf="(stop.departure && stop.departure[0]?.line) && (stop.arrival && stop.arrival[0]?.line) ">
+                            <div *ngIf="(stop.departure) && (stop.arrival)">
                                 <i class="fas fa-arrow-down mt-2"></i>
                             </div>
-                            <div *ngIf="stop.departure && stop.departure[0]?.line" class="mt-2">
-                                <i class="fas fa-train"></i><span class="mt-2"
-                                *ngIf="stop.tripFlags && stop.tripFlags[0]?.category ">{{ stop.tripFlags[0].category }}</span>
-                                <span class="mt-2">{{ stop.departure[0].line }}</span>
+                            <div *ngIf="stop.departure" class="mt-2">
+                                <i class="fas fa-train"></i>
+                                <span class="mt-2"
+                                      *ngIf="stop.tripFlags && stop.tripFlags[0]?.category">{{ stop.tripFlags[0].category }}</span>
+                                <span class="mt-2" *ngIf="stop.departure[0]?.line">{{ stop.departure[0].line }}</span>
                             </div>
                         </div>
                     </div>
