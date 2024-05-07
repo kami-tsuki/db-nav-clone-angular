@@ -31,6 +31,9 @@ import {
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {MatFormField} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {MatList, MatListItem} from "@angular/material/list";
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -77,7 +80,11 @@ export const routes: Routes = [
         MatCardContent,
         MatToolbar,
         MatCardHeader,
-        MatProgressSpinner
+        MatProgressSpinner,
+        MatFormField,
+        MatInput,
+        MatList,
+        MatListItem
     ],
     providers: [
         HttpClient,
