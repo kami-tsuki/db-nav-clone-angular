@@ -1,0 +1,62 @@
+<mat-dialog-content class="bg-white p-6 rounded-lg shadow-lg">
+    <mat-card class="mb-4">
+        <mat-card-title class="text-2xl font-bold">Facility Information</mat-card-title>
+        <mat-card-content>
+            <ul class="list-disc list-inside space-y-2">
+                <li class="text-lg"><span class="font-bold">Station:</span> {{ data.name }}</li>
+                <li class="text-lg"><span class="font-bold">No:</span> {{ data.stationnumber }}</li>
+            </ul>
+        </mat-card-content>
+    </mat-card>
+    <mat-tab-group dynamicHeight>
+        <mat-tab *ngIf="elevators.length > 0" label="Elevator">
+            <div *ngFor="let facility of elevators">
+                <mat-card class="mb-4">
+                    <mat-card-content>
+                        <div *ngIf="facility.type === 'ELEVATOR'" class="bg-gray-100 p-4 rounded-lg shadow-lg mt-4">
+                            <div class="flex items-center">
+                                <mat-icon class="text-green-500" *ngIf="facility.state === 'ACTIVE'">check_circle
+                                </mat-icon>
+                                <mat-icon class="text-red-500" *ngIf="facility.state === 'INACTIVE'">cancel</mat-icon>
+                                <mat-icon class="text-gray-500" *ngIf="facility.state === 'UNKNOWN'">help_outline
+                                </mat-icon>
+                                <h3 class="text-xl font-bold ml-2">{{ facility.description }}</h3>
+                            </div>
+                            <p class="mt-2">{{ facility.stateExplanation }}</p>
+                            <div class="mt-4 flex justify-between">
+                                <span class="font-bold text-gray-500 text-xs">EQ: {{ facility.equipmentnumber }}</span>
+                                <span
+                                    class="font-bold text-gray-500 text-xs">Station: {{ facility.stationnumber }}</span>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-tab>
+        <mat-tab *ngIf="escelators.length > 0" label="Escalator">
+            <div *ngFor="let facility of escelators">
+                <mat-card class="mb-4">
+                    <mat-card-content>
+                        <div *ngIf="facility.type === 'ESCALATOR'" class="bg-gray-100 p-4 rounded-lg shadow-lg mt-4">
+                            <div class="flex items-center">
+                                <mat-icon class="text-green-500" *ngIf="facility.state === 'ACTIVE'">check_circle
+                                </mat-icon>
+                                <mat-icon class="text-red-500" *ngIf="facility.state === 'INACTIVE'">cancel</mat-icon>
+                                <mat-icon class="text-gray-500" *ngIf="facility.state === 'UNKNOWN'">help_outline
+                                </mat-icon>
+                                <h3 class="text-xl font-bold ml-2">{{ facility.description }}</h3>
+                            </div>
+                            <p class="mt-2">{{ facility.stateExplanation }}</p>
+                            <div class="mt-4 flex justify-between">
+                                <span class="font-bold text-gray-500 text-xs">EQ: {{ facility.equipmentnumber }}</span>
+                                <span
+                                    class="font-bold text-gray-500 text-xs">Station: {{ facility.stationnumber }}</span>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+    <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+</mat-dialog-content>

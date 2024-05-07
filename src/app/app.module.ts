@@ -25,6 +25,10 @@ import {FooterComponent} from "./shared/footer/footer.component";
 import {CacheService} from "../services/cache.service";
 import {TimetableComponent} from "./main/timetable/timetable.component";
 import {TrainInfoDialog} from "./main/timetable/train-info-dialog/train-info-dialog.component";
+import {
+    FacilityInformationComponent
+} from "./main/search/station-detail/facility-information/facility-information.component";
+import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -47,7 +51,8 @@ export const routes: Routes = [
         NavbarComponent,
         FooterComponent,
         TimetableComponent,
-    TrainInfoDialog,
+        TrainInfoDialog,
+        FacilityInformationComponent
     ],
     imports: [
         HttpClientModule,
@@ -64,7 +69,10 @@ export const routes: Routes = [
         MatDialogClose,
         MatIcon,
         MatIconButton,
-        MatDialogTitle
+        MatDialogTitle,
+        MatCard,
+        MatCardTitle,
+        MatCardContent
     ],
     providers: [
         HttpClient,
@@ -74,7 +82,18 @@ export const routes: Routes = [
         ConfigService,
         provideAnimationsAsync()],
     bootstrap: [
-        AppComponent
+        AppComponent,
+        AppComponent,
+        StationDetailComponent,
+        IconExplanationDialogComponent,
+        HeaderComponent,
+        HomeComponent,
+        NavigationsComponent,
+        NavbarComponent,
+        FooterComponent,
+        TimetableComponent,
+        TrainInfoDialog,
+        FacilityInformationComponent
     ],
     exports: [
         SearchComponent,
@@ -88,6 +107,7 @@ export const routes: Routes = [
         FooterComponent,
         TimetableComponent,
         TrainInfoDialog,
+        FacilityInformationComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

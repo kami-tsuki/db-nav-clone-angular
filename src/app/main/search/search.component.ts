@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit {
     searchUpdated: Subject<string> = new Subject<string>();
     searchTriggered: Subject<void> = new Subject<void>();
     isLoading: boolean = false;
+    message: string = '';
 
     constructor(
         public dbService: DbService,
@@ -57,6 +58,7 @@ export class SearchComponent implements OnInit {
         if (!this.searchString) {
             this.results = [];
             this.isLoading = false;
+            this.message = '';
             return;
         }
 
@@ -76,11 +78,13 @@ export class SearchComponent implements OnInit {
         });
 
         this.dbService.getSearchStationData(this.searchString, 15, this.offset, this.category, this.federalstate, this.eva, this.ril, this.logicaloperator).subscribe(
-            (value: { data: { result: Station[]; }; }) => {
+            (value: { data: { result: Station[]; }; msg: { error: boolean; message: string; }; }) => {
                 this.results = value?.data?.result || [];
+                this.message = value?.msg?.message || '';
                 this.isLoading = false;
             },
             (error: any) => {
+                this.message = 'An error occurred while fetching data.';
                 this.isLoading = false;
             }
         );

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Station} from '../../../../models/result.StationData.Stations';
 import {MatDialog} from '@angular/material/dialog';
 import {IconExplanationDialogComponent} from "./icon-explanation-dialog/icon-explanation-dialog.component";
@@ -6,14 +6,11 @@ import {ConfigService} from "../../../../services/config.service";
 import {Router} from "@angular/router";
 import {
     Explanation,
-    IconExplanationConfigModel,
-    ExplanationsModel
+    ExplanationsModel,
+    IconExplanationConfigModel
 } from "../../../../models/iconExplanationConfigModel";
 import {DbService} from "../../../../services/db.service";
-import {
-    convertToModel,
-    Timetable
-} from "../../../../models/result.TimeTable.Plan";
+import {FacilityInformationComponent} from "./facility-information/facility-information.component";
 
 
 @Component({
@@ -29,7 +26,7 @@ export class StationDetailComponent {
         private dialog: MatDialog,
         private dbService: DbService,
         private configService: ConfigService,
-        private router: Router ) {
+        private router: Router) {
         this.configService.fetchConfig("data/iconExplanations.json").subscribe(
             (value: ExplanationsModel) => {
                 this.config = new IconExplanationConfigModel(value);
@@ -57,6 +54,28 @@ export class StationDetailComponent {
 
     openTimeTablePage() {
         const evaNo = this.station.evaNumbers[0]?.number;
-        this.router.navigate(['/timetable'], { queryParams: { evaNo } });
+        this.router.navigate(['/timetable'], {queryParams: {evaNo}});
     }
+
+    openFacilityInformationDialog() {
+        try {
+            const evaNo = this.station.number;
+            this.dbService.getFacilityInformation(evaNo).subscribe(
+                (facilityData: any) => {
+                    this.openFacilityModalDialog(facilityData.data);
+                }
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    openFacilityModalDialog(facilityData: any) {
+        console.log('Opening modal');
+        this.dialog.open(FacilityInformationComponent, {
+            data: facilityData as Station,
+            width: '80%'
+        });
+    }
+
 }

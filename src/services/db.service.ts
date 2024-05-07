@@ -185,6 +185,44 @@ export class DbService {
         const params = new HttpParams();
         return this.fetchXmlData(url, params, forceRequest, addToCache);
     }
+
+    getFacilityInformation(stationnumber: number, forceRequest: boolean = false, addToCache: boolean = true): any {
+        const url = `https://apis.deutschebahn.com/db-api-marketplace/apis/fasta/v2/stations/${stationnumber}`;
+        const params = new HttpParams();
+
+        return this.fetchJsonData(url, params, forceRequest, addToCache);
+    }
+
+    getFacilityByEquipmentNumber(equipmentnumber: number, forceRequest: boolean = false, addToCache: boolean = true): any {
+        const url = `https://apis.deutschebahn.com/db-api-marketplace/apis/fasta/v2/facilities/${equipmentnumber}`;
+        const params = new HttpParams();
+
+        return this.fetchJsonData(url, params, forceRequest, addToCache);
+    }
+
+    findFacilities(
+        type?: string[],
+        state?: string[],
+        equipmentnumbers?: number[],
+        stationnumber?: number,
+        area?: string[],
+        forceRequest: boolean = false,
+        addToCache: boolean = true
+    ): any {
+        const url = 'https://apis.deutschebahn.com/db-api-marketplace/apis/fasta/v2/facilities';
+
+        let params = new HttpParams();
+        if (type && type.length > 0) params = params.set('type', type.join(','));
+        if (state && state.length > 0) params = params.set('state', state.join(','));
+        if (equipmentnumbers && equipmentnumbers.length > 0) params = params.set('equipmentnumbers', equipmentnumbers.join(','));
+        if (stationnumber) params = params.set('stationnumber', stationnumber.toString());
+        if (area && area.length === 4) params = params.set('area', area.join(','));
+
+        return this.fetchJsonData(url, params, forceRequest, addToCache);
+    }
+
+
+
 }
 
 interface ResponseObject {

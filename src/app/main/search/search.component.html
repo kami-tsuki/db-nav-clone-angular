@@ -1,34 +1,40 @@
 <div class="container mx-auto px-4">
+    <div *ngIf="message" class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+        <p class="font-bold">Informational message</p>
+        <p class="text-sm">{{ message }}</p>
+    </div>
+
+    <div *ngIf="isLoading" class="loading-spinner"></div>
+    <div *ngIf="!isLoading && !results.length" class="no-results">No results found</div>
     <div class="flex flex-wrap items-center justify-center mt-10">
         <input type="text" [(ngModel)]="searchString" (ngModelChange)="onSearchChange()" (keyup.enter)="search()"
                placeholder="Search..."
                class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4">
-<!--        <input type="number" [(ngModel)]="offset" (ngModelChange)="onSearchChange()" (keyup.enter)="search()"-->
-<!--               placeholder="Offset"-->
-<!--               class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4">-->
-<!--        <input type="text" [(ngModel)]="category" (ngModelChange)="onSearchChange()" (keyup.enter)="search()"-->
-<!--               placeholder="Category"-->
-<!--               class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4">-->
-<!--        <input type="text" [(ngModel)]="federalstate" (ngModelChange)="onSearchChange()" (keyup.enter)="search()"-->
-<!--               placeholder="Federal State"-->
-<!--               class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4">-->
-<!--        <input type="number" [(ngModel)]="eva" (ngModelChange)="onSearchChange()" (keyup.enter)="search()"-->
-<!--               placeholder="EVA"-->
-<!--               class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4">-->
-<!--        <input type="text" [(ngModel)]="ril" (ngModelChange)="onSearchChange()" (keyup.enter)="search()"-->
-<!--               placeholder="RIL"-->
-<!--               class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4">-->
-<!--        <input type="text" [(ngModel)]="logicaloperator" (ngModelChange)="onSearchChange()" (keyup.enter)="search()"-->
-<!--               placeholder="Logical Operator"-->
-<!--               class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4">-->
-<!--        <button (click)="search()" class="absolute right-0 top-0 mt-5 mr-4 md:mr-0 md:ml-4">-->
-<!--            <i class="fas fa-search"></i>-->
-<!--        </button>-->
+        <!--        <input type="number" [(ngModel)]="offset" (ngModelChange)="onSearchChange()" (keyup.enter)="search()"-->
+        <!--               placeholder="Offset"-->
+        <!--               class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4">-->
+        <!--        <input type="text" [(ngModel)]="category" (ngModelChange)="onSearchChange()" (keyup.enter)="search()"-->
+        <!--               placeholder="Category"-->
+        <!--               class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4">-->
+        <!--        <input type="text" [(ngModel)]="federalstate" (ngModelChange)="onSearchChange()" (keyup.enter)="search()"-->
+        <!--               placeholder="Federal State"-->
+        <!--               class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4">-->
+        <!--        <input type="number" [(ngModel)]="eva" (ngModelChange)="onSearchChange()" (keyup.enter)="search()"-->
+        <!--               placeholder="EVA"-->
+        <!--               class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4">-->
+        <!--        <input type="text" [(ngModel)]="ril" (ngModelChange)="onSearchChange()" (keyup.enter)="search()"-->
+        <!--               placeholder="RIL"-->
+        <!--               class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4">-->
+        <!--        <input type="text" [(ngModel)]="logicaloperator" (ngModelChange)="onSearchChange()" (keyup.enter)="search()"-->
+        <!--               placeholder="Logical Operator"-->
+        <!--               class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4">-->
+        <!--        <button (click)="search()" class="absolute right-0 top-0 mt-5 mr-4 md:mr-0 md:ml-4">-->
+        <!--            <i class="fas fa-search"></i>-->
+        <!--        </button>-->
     </div>
     <div class="mt-10 flex flex-col items-stretch w-full space-y-1" *ngIf="results && results.length > 0">
         <app-station-detail class="w-full" *ngFor="let result of results; let i = index" [station]="result"
                             [class.bg-gray-200]="i % 2 === 0"></app-station-detail>
     </div>
-    <div *ngIf="isLoading" class="loading-spinner"></div>
-    <div *ngIf="!isLoading && !results.length" class="no-results">No results found</div>
+
 </div>
