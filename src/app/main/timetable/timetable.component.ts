@@ -13,13 +13,15 @@ import {TrainInfoDialog} from "./train-info-dialog/train-info-dialog.component";
 })
 export class TimetableComponent implements OnInit {
     timetable: Timetable;
+    isLoading = true;
 
     constructor(
         private dbService: DbService,
         private route: ActivatedRoute,
         private router: Router,
-        public dialog: MatDialog
+        public dialog: MatDialog,
     ) {
+        this.isLoading = true;
     }
 
     ngOnInit() {
@@ -41,11 +43,13 @@ export class TimetableComponent implements OnInit {
     }
 
     getTimeTable(eva: string, date: string, hour: string) {
+        this.isLoading = true;
         this.dbService.getTimeTablesPlan(eva, date, hour, true, false)
             .subscribe((value: any) => {
                 console.log("response: ", value);
                 this.timetable = convertToModel(value?.data?.timetable);
-                console.log("timetable: ", this.timetable)
+                console.log("timetable: ", this.timetable);
+                this.isLoading = false;
             });
     }
 

@@ -1,33 +1,45 @@
-<div class="container mx-auto px-4">
-    <h1 class="text-2xl font-bold mb-4">Timetable</h1>
-    <h2 *ngIf="timetable?.station" class="text-xl font-semibold mb-2">{{ timetable.station }}</h2>
+<div *ngIf="isLoading" class="spinner-container flex items-center justify-center h-screen w-screen">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!isLoading" class="container mx-auto px-4">
+    <mat-toolbar class="flex justify-between items-center bg-gray-600 text-white">
+        <mat-icon class="mr-2">schedule</mat-icon>
+        <h1 class="text-3xl font-bold">Timetable</h1>
+        <mat-icon class="ml-2">train</mat-icon>
+    </mat-toolbar>
     <div *ngIf="timetable?.stops && timetable.stops.length">
-        <div *ngFor="let stop of timetable.stops" class="border p-4 my-2">
-            <h3 class="text-lg font-bold mb-2">{{ stop.evaStationNumber }}</h3>
-            <div *ngIf="stop.arrival" class="mt-2">
-                <div *ngIf="stop.arrival" class="mt-2">
-                    <div class="path-container">
-                        <div *ngFor="let path of stop.arrival[0].pathArray" class="path-stop">
-                            <div class="path-dot"></div>
-                            <p>{{ path }}</p>
-                        </div>
+        <mat-card *ngFor="let stop of timetable.stops" class="my-4 ">
+            <mat-card-header>
+                <mat-card-title class="text-xl font-bold text-blue-400">{{ stop.evaStationNumber }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="grid grid-cols-5 gap-6">
+                    <div *ngIf="stop.arrival && stop.arrival.length > 0 else arrivalPlaceholder"
+                         class="flex flex-col w-full">
+                        <h5 class="text-md font-bold text-gray-500">Arrival:</h5>
+                        <h5 *ngIf="stop.arrival && stop.arrival.length > 0 && stop.arrival[0].pathArray && stop.arrival[0].pathArray.length > 0"
+                            class="text-md font-bold text-green-500">{{ stop.arrival[0].pathArray[0] }}</h5>
+                        <p>
+                            <mat-icon class="mr-1 text-green-500">schedule</mat-icon>
+                            {{ stop.arrival[0].plannedDateTime | date:'shortTime' }}
+                        </p>
+                        <p>
+                            <mat-icon class="mr-1 text-green-500">directions_railway</mat-icon>
+                            {{ stop.arrival[0].plannedPlatform }}
+                        </p>
                     </div>
-                </div>
-                <div class="border p-2 flex flex-col sm:flex-row">
-                    <div class="flex flex-col w-full sm:w-1/2">
-                        <h4 class="text-lg font-bold"> {{ timetable.station }}</h4>
-                        <div *ngIf="stop.arrival" class="mt-2">
-                            <h5 class="text-md font-bold">Arrival:</h5>
-                            <p>Planned Arrival: {{ stop.arrival[0].plannedDateTime | date:'shortTime' }}</p>
-                            <p>Planned Platform: {{ stop.arrival[0].plannedPlatform }}</p>
-                        </div>
-                        <div *ngIf="stop.departure" class="mt-2">
-                            <h5 class="text-md font-bold">Departure:</h5>
-                            <p>Planned Departure: {{ stop.departure[0].plannedDateTime | date:'shortTime' }}</p>
-                            <p>Planned Platform: {{ stop.departure[0].plannedPlatform }}</p>
-                        </div>
+                    <ng-template #arrivalPlaceholder class="flex flex-col w-full">
+                        <div></div>
+                    </ng-template>
+                    <div class="flex items-center justify-center">
+                        <mat-icon
+                            *ngIf="stop.arrival && stop.arrival.length > 0 && stop.arrival[0].pathArray && stop.arrival[0].pathArray.length > 0"
+                            class="text-gray-500">arrow_forward
+                        </mat-icon>
                     </div>
-                    <div class="flex flex-col w-full sm:w-1/2 mt-4 sm:mt-0 sm:pl-4">
+                    <div class="flex flex-col w-full">
+                        <h5 class="text-md font-bold text-gray-500">Current:</h5>
+                        <h5 class="text-md font-bold text-blue-500"> {{ timetable.station }}</h5>
                         <div (click)="openDialog(stop)" class="cursor-pointer hover:bg-gray-50 p-2 rounded-lg">
                             <div *ngIf="stop.arrival" class="mt-2">
                                 <i class="fas fa-train mt-2"></i>
@@ -46,16 +58,31 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div *ngIf="stop.departure" class="mt-2">
-                    <div class="path-container">
-                        <div *ngFor="let path of stop.departure[0].pathArray" class="path-stop">
-                            <div class="path-dot"></div>
-                            <p>{{ path }}</p>
-                        </div>
+                    <div class="flex items-center justify-center">
+                        <mat-icon
+                            *ngIf="stop.departure && stop.departure.length > 0 && stop.departure[0].pathArray && stop.departure[0].pathArray.length > 0"
+                            class="text-gray-500">arrow_forward
+                        </mat-icon>
                     </div>
+                    <div *ngIf="stop.departure && stop.departure.length > 0 else departurePlaceholder"
+                         class="flex flex-col w-full">
+                        <h5 class="text-md font-bold text-gray-500">Departure:</h5>
+                        <h5 *ngIf="stop.departure && stop.departure.length > 0 && stop.departure[0].pathArray && stop.departure[0].pathArray.length > 0"
+                            class="text-md font-bold text-red-500">{{ stop.departure[0].pathArray[stop.departure[0].pathArray.length - 1] }}</h5>
+                        <p>
+                            <mat-icon class="mr-1 text-red-500">schedule</mat-icon>
+                            {{ stop.departure[0].plannedDateTime | date:'shortTime' }}
+                        </p>
+                        <p>
+                            <mat-icon class="mr-1 text-red-500">directions_railway</mat-icon>
+                            {{ stop.departure[0].plannedPlatform }}
+                        </p>
+                    </div>
+                    <ng-template #departurePlaceholder class="flex flex-col w-full">
+                        <div></div>
+                    </ng-template>
                 </div>
-            </div>
-        </div>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>

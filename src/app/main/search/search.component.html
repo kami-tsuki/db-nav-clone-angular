@@ -1,4 +1,4 @@
-<div class="container mx-auto px-4">
+<div class="container mx-auto px-2">
     <div *ngIf="message" class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
         <p class="font-bold">Informational message</p>
         <p class="text-sm">{{ message }}</p>
@@ -33,8 +33,8 @@
         <!--        </button>-->
     </div>
     <div class="mt-10 flex flex-col items-stretch w-full space-y-1" *ngIf="results && results.length > 0">
-        <app-station-detail class="w-full" *ngFor="let result of results; let i = index" [station]="result"
-                            [class.bg-gray-200]="i % 2 === 0"></app-station-detail>
+        <app-station-detail class="w-full bg-gray-200" *ngFor="let result of results; let i = index"
+                            [station]="result"></app-station-detail>
     </div>
 
 </div>

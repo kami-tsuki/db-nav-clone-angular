@@ -28,7 +28,9 @@ import {TrainInfoDialog} from "./main/timetable/train-info-dialog/train-info-dia
 import {
     FacilityInformationComponent
 } from "./main/search/station-detail/facility-information/facility-information.component";
-import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {MatToolbar} from "@angular/material/toolbar";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -72,7 +74,10 @@ export const routes: Routes = [
         MatDialogTitle,
         MatCard,
         MatCardTitle,
-        MatCardContent
+        MatCardContent,
+        MatToolbar,
+        MatCardHeader,
+        MatProgressSpinner
     ],
     providers: [
         HttpClient,

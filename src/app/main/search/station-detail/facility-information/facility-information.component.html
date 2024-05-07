@@ -1,13 +1,12 @@
 <mat-dialog-content class="bg-white p-6 rounded-lg shadow-lg">
-    <mat-card class="mb-4">
-        <mat-card-title class="text-2xl font-bold">Facility Information</mat-card-title>
-        <mat-card-content>
-            <ul class="list-disc list-inside space-y-2">
-                <li class="text-lg"><span class="font-bold">Station:</span> {{ data.name }}</li>
-                <li class="text-lg"><span class="font-bold">No:</span> {{ data.stationnumber }}</li>
-            </ul>
-        </mat-card-content>
-    </mat-card>
+    <mat-toolbar class="mb-4">
+        <mat-icon class="mr-2">elevator</mat-icon>
+        <span class="flex-grow text-2xl font-bold">Facility Information</span>
+        <span class="text-gray-500">{{ data.name }}</span>
+        <button mat-icon-button (click)="closeDialog()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar>
     <mat-tab-group dynamicHeight>
         <mat-tab *ngIf="elevators.length > 0" label="Elevator">
             <div *ngFor="let facility of elevators">
@@ -58,5 +57,4 @@
             </div>
         </mat-tab>
     </mat-tab-group>
-    <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
 </mat-dialog-content>
