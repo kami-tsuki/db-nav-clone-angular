@@ -34,6 +34,7 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatList, MatListItem} from "@angular/material/list";
+import {StopInfoComponent} from "./main/timetable/stop-info/stop-info.component";
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -57,7 +58,8 @@ export const routes: Routes = [
         FooterComponent,
         TimetableComponent,
         TrainInfoDialog,
-        FacilityInformationComponent
+        FacilityInformationComponent,
+        StopInfoComponent
     ],
     imports: [
         HttpClientModule,
@@ -105,7 +107,8 @@ export const routes: Routes = [
         FooterComponent,
         TimetableComponent,
         TrainInfoDialog,
-        FacilityInformationComponent
+        FacilityInformationComponent,
+        StopInfoComponent
     ],
     exports: [
         SearchComponent,
@@ -119,7 +122,8 @@ export const routes: Routes = [
         FooterComponent,
         TimetableComponent,
         TrainInfoDialog,
-        FacilityInformationComponent
+        FacilityInformationComponent,
+        StopInfoComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

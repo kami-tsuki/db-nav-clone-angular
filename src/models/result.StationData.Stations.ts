@@ -1,5 +1,3 @@
-import {Explanation, Explanations} from "./iconExplanationConfigModel";
-
 export interface result {
     data: data;
     msg: {

@@ -1,12 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {map, shareReplay} from "rxjs";
-import {data} from "../models/result.StationData.Stations";
+import {from, map, of, shareReplay} from "rxjs";
 import {CacheService} from "./cache.service";
 import {parseString} from 'xml2js';
-import {of, from} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
-import * as stream from "node:stream";
+import {catchError, switchMap} from 'rxjs/operators';
 
 @Injectable()
 export class DbService {
@@ -68,6 +65,18 @@ export class DbService {
                 if (addToCache) this.cacheService.set(cacheKey, result, 60000);
                 return result;
             }),
+            catchError(error => of({
+                data: null,
+                msg: {
+                    error: true,
+                    message: error.message || 'An error occurred',
+                    statusCode: error.status.toString(),
+                    req: {
+                        url: error.url,
+                        method: 'GET'
+                    }
+                }
+            })),
             shareReplay(1)
         );
     }
@@ -129,6 +138,18 @@ export class DbService {
                     );
                 }
             }),
+            catchError(error => of({
+                data: null,
+                msg: {
+                    error: true,
+                    message: error.message || 'An error occurred',
+                    statusCode: error.status.toString(),
+                    req: {
+                        url: error.url,
+                        method: 'GET'
+                    }
+                }
+            })),
             shareReplay(1)
         );
 
@@ -220,7 +241,6 @@ export class DbService {
 
         return this.fetchJsonData(url, params, forceRequest, addToCache);
     }
-
 
 
 }

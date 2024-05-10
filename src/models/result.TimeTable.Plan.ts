@@ -1,5 +1,3 @@
-import {dateTimestampProvider} from "rxjs/internal/scheduler/dateTimestampProvider";
-
 export interface TimetableStopEvent {
     cde?: string;
     clt?: string;
@@ -122,6 +120,7 @@ export interface TimetableStop {
     historicDelays?: HistoricDelay[];
     historicPlatformChanges?: HistoricPlatformChange[];
     id: string;
+    station?: string;
     messages?: Message[];
     tripReferences?: {
         referenceTrip?: ReferenceTrip[];
@@ -151,6 +150,7 @@ export function convertToModel(data: any): Timetable {
         stops: data.s.map((stop: any) => {
             const timetableStop: TimetableStop = {
                 id: stop.$.id,
+                station: data.$.station,
                 evaStationNumber: stop.$.eva,
                 arrival: stop.ar ? stop.ar.map((ar: any) => ({
                     line: ar.$.l,
@@ -340,4 +340,31 @@ export function getTrainLine(stop: TimetableStop) : string {
         }
     }
     return '';
+}
+
+export function combineAndSortStops(timetables: Timetable[]): TimetableStop[] {
+    // Combine all stops into a single array
+    let combinedStops: TimetableStop[] = [];
+    timetables.forEach(timetable => {
+        combinedStops = [...combinedStops, ...timetable.stops];
+    });
+
+    // Remove duplicates
+    const uniqueStops: TimetableStop[] = [];
+    const idSet = new Set();
+    combinedStops.forEach(stop => {
+        if (!idSet.has(stop.id)) {
+            idSet.add(stop.id);
+            uniqueStops.push(stop);
+        }
+    });
+
+    // Sort the stops
+    uniqueStops.sort((a, b) => {
+        const aTime = a.arrival && a.arrival[0] && a.arrival[0].plannedDateTime ? a.arrival[0].plannedDateTime : a.departure && a.departure[0] && a.departure[0].plannedDateTime ? a.departure[0].plannedDateTime : new Date(0);
+        const bTime = b.arrival && b.arrival[0] && b.arrival[0].plannedDateTime ? b.arrival[0].plannedDateTime : b.departure && b.departure[0] && b.departure[0].plannedDateTime ? b.departure[0].plannedDateTime : new Date(0);
+        return aTime.getTime() - bTime.getTime();
+    });
+
+    return uniqueStops;
 }
