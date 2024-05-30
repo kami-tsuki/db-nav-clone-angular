@@ -32,7 +32,7 @@ testing capabilities.
 To get more help on the Angular CLI use `ng help` or go check 
 out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-## Screenshot
+## Screenshot-Anleitung
 
 ### Startseite
 
@@ -40,17 +40,25 @@ out the [Angular CLI Overview and Command Reference](https://angular.io/cli) pag
 
 ### Suche
 
+Über die Suchfunktion können Sie nach spezifischen Orten oder Inhalten suchen. Geben Sie Ihren Suchbegriff in das Suchfeld ein und bestätigen Sie mit Enter oder klicken Sie auf das Suchsymbol.
+
 ![image](https://github.com/tsuki-kami-studios/db-nav-clone-angular/assets/160274072/d8ae09b2-a76f-4bd1-bf69-fc615514348f)
 
 ### Beispielsuchergebnis ("Magdeburg")
+
+Nach Eingabe des Suchbegriffs "Magdeburg" werden die Suchergebnisse angezeigt. Hier sehen Sie eine Liste von Ergebnissen, die den Suchkriterien entsprechen.
 
 ![image](https://github.com/tsuki-kami-studios/db-nav-clone-angular/assets/160274072/351afa93-b4d2-4a96-920d-0e3bd141c1b3)
 
 ### Symbolerklärungs-Pop-up
 
+Ein Pop-up-Fenster kann angezeigt werden, um die Bedeutung der verschiedenen Symbole zu erklären. Dieses Fenster hilft, die Navigation und Funktionalität der Anwendung besser zu verstehen.
+
 ![image](https://github.com/tsuki-kami-studios/db-nav-clone-angular/assets/160274072/ebac9a80-fcb4-42e4-a490-c2551fbd8c3b)
 
 ### Detailansicht Bahnhof
+
+In der Detailansicht kann man mit den Knöpfen `Add Earlier` und `Add Later` können frühere und spätere Verbindungen angezeigt werden. Um einen bestimmten Zeitraum anzuzeigen kann man diesen daneben festlegen.
 
 ![image](https://github.com/tsuki-kami-studios/db-nav-clone-angular/assets/160274072/bf697125-4a4e-4cae-b469-b8d5394fdb66)
 
