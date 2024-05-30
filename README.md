@@ -33,15 +33,19 @@ To get more help on the Angular CLI use `ng help` or go check
 out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## Screenshot
-Startseite
-![image](https://github.com/tsuki-kami-studios/db-nav-clone-angular/assets/160274072/2bdf5667-9d31-42d3-91e6-5fc329b25e5e)
-Suche
+###Startseite
+![image](https://github.com/tsuki-kami-studios/db-nav-clone-angular/assets/160274072/0bb0e6fd-79cf-43d0-b5fa-e4934609fe3b)
+
+###Suche
 ![image](https://github.com/tsuki-kami-studios/db-nav-clone-angular/assets/160274072/d8ae09b2-a76f-4bd1-bf69-fc615514348f)
-Beispielsuchergebnis ("Magdeburg")
+
+###Beispielsuchergebnis ("Magdeburg")
 ![image](https://github.com/tsuki-kami-studios/db-nav-clone-angular/assets/160274072/351afa93-b4d2-4a96-920d-0e3bd141c1b3)
-Symbolerklärungs-Pop-up
+
+###Symbolerklärungs-Pop-up
 ![image](https://github.com/tsuki-kami-studios/db-nav-clone-angular/assets/160274072/ebac9a80-fcb4-42e4-a490-c2551fbd8c3b)
-Detailansicht Bahnhof
+
+###Detailansicht Bahnhof
 ![image](https://github.com/tsuki-kami-studios/db-nav-clone-angular/assets/160274072/bf697125-4a4e-4cae-b469-b8d5394fdb66)
 
 
