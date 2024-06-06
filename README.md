@@ -42,7 +42,7 @@ Ein Pop-up-Fenster kann angezeigt werden, um die Bedeutung der verschiedenen Sym
 
 ### Detailansicht Bahnhof
 
-In der Detailansicht kann man mit den Knöpfen `Add Earlier` und `Add Later` können frühere und spätere Verbindungen angezeigt werden. Um einen bestimmten Zeitraum anzuzeigen kann man diesen daneben festlegen.
+In der Detailansicht kann man mit den Knöpfen `Add Earlier` und `Add Later` frühere und spätere Verbindungen angezeigen. Um einen bestimmten Zeitraum anzuzeigen kann man diesen daneben festlegen.
 
 ![image](https://github.com/tsuki-kami-studios/db-nav-clone-angular/assets/160274072/bf697125-4a4e-4cae-b469-b8d5394fdb66)
 
